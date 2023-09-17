@@ -1,7 +1,7 @@
 '''
 # Team ID:          < 2414 >
 # Theme:            < Cosmo Logistic >
-# Author List:      < Aditya Wadgaonkar >
+# Author List:      < Aditya Wadgaonkar,Harikishanthini K,Sujan Adiga,Tanay Srivastava >
 # Filename:         < Find_the_Toppers.py >
 # Functions:        < find_max_score_students,process_test_cases,main >
 # Global variables: < None >
