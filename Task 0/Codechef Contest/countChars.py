@@ -7,10 +7,10 @@
 # Global variables: < None >
 '''
 
-test_cases=int(input("no of test cases: "))
+test_cases=int(input())
 l1=[]
 for j in range(0,test_cases):
-    str = input("enter a string: ")
+    str = input()
     l1.append(str)
 
 
