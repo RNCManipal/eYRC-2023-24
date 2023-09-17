@@ -1,7 +1,7 @@
 '''
 # Team ID:          < 2414 >
 # Theme:            < Cosmo Logistic >
-# Author List:      < Aditya Wadgaonkar >
+# Author List:      < Aditya Wadgaonkar,Harikishanthini K,Sujan Adiga,Tanay Srivastava >
 # Filename:         < Manage the Inventory.py >
 # Functions:        < add_item,delete_item,calculate_total,manage_inventory,main >
 # Global variables: < None >
