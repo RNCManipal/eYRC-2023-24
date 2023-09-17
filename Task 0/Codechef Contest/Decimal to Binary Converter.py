@@ -38,6 +38,11 @@ def dec_to_binary(n):
     else:
         return dec_to_binary(n // 2) + str(n % 2)
 
+
+# Function Name:    main (built-in)
+# Inputs:           Input the Decimal number
+# Outputs:          Prints the binary 8bit format of decimal number
+# Purpose:          To call the  dec_to_binary() function to perform the desired conversion from decimal to binary and take the inputs in form of decimal number.
 if __name__ == "__main__":
     # test_cases :Input total number of test cases
     test_cases = int(input())
