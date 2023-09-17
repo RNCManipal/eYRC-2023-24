@@ -12,11 +12,11 @@
 #       Outputs:    To print string is Palindrome or not Palindrome
 #       Purpose:    To check Strig is Palindrome or not Palindrome
 if __name__ == '__main__':
-  num=int(input())
+  t=int(input())
   
-  for i in range(0,num):
+  for i in range(t):
     str=input()
     if str.capitalize() == str[::-1].capitalize():
-        print("It is a palindrome.")
+        print("It is a palindrome")
     else:
-        print("It is not a palindrome.")
+        print("It is not a palindrome")
