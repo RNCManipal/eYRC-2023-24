@@ -1,3 +1,12 @@
+'''
+# Team ID:          < 2414 >
+# Theme:            < Cosmo Logistic >
+# Author List:      < Aditya Wadgaonkar,Harikishanthini K,Sujan Adiga,Tanay Srivastava  >
+# Filename:         < stringSlice.py >
+# Functions:        < None >
+# Global variables: < None >
+'''
+
 l1 = []
 
 len = int(input("Length of list: "))
