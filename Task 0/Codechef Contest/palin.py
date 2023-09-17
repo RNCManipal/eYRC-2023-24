@@ -1,3 +1,12 @@
+'''
+# Team ID:          < 2414 >
+# Theme:            < Cosmo Logistic >
+# Author List:      < Aditya Wadgaonkar,Harikishanthini K,Sujan Adiga,Tanay Srivastava  >
+# Filename:         < palin.py >
+# Functions:        < None >
+# Global variables: < None >
+'''
+
 num=int(input("enter the number of strings to check: "))
 
 for i in range(0,num):
