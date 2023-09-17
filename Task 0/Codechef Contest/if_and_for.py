@@ -1,3 +1,11 @@
+'''
+# Team ID:          < 2414 >
+# Theme:            < Cosmo Logistic >
+# Author List:      < Aditya Wadgaonkar,Harikishanthini K,Sujan Adiga,Tanay Srivastava  >
+# Filename:         < if_and_for.py >
+# Functions:        < None >
+# Global variables: < None >
+'''
 if __name__ == '__main__':
     
     n = int(input("Enter n: "))
