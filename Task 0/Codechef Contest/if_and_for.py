@@ -26,4 +26,4 @@ if __name__ == '__main__':
                     
               else:
                 print(i+3,end=" ") 
-      print("\n")   
+      print("\r")   
