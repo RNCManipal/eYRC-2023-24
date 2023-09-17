@@ -1,7 +1,7 @@
 '''
 # Team ID:          < 2414 >
 # Theme:            < Cosmo Logistic >
-# Author List:      < Aditya Wadgaonkar >
+# Author List:      < Aditya Wadgaonkar,Harikishanthini K,Sujan Adiga,Tanay Srivastava >
 # Filename:         < Arithamatic_Progression_with_Lamda_function.py >
 # Functions:        < generate_AP,calculate_sum_of_squares,perform_operations,main >
 # Global variables: < None >
