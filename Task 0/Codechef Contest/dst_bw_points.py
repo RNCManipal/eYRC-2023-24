@@ -14,6 +14,34 @@ def compute_distance(x1, y1, x2, y2):
 
     # Complete this function to return Euclidean distance and
     # print the distance value with precision up to 2 decimal places
+'''
+Purpose:
+---
+< calculate distance between two points with two (x,y) coordinates >
+
+Input Arguments:
+---
+`< x1 >` :  [ < int > ]
+    <  x coordinate of 1st point >
+
+`< y1 >` :  [ < int > ]
+    <  y coordinate of 1st point >
+    
+`< x2 >` :  [ < int > ]
+    <  x coordinate of 2nd point >
+    
+`< y2 >` :  [ < int > ]
+    <  y coordinate of 2nd point >
+
+Returns:
+---
+`< distance >` :  [ < int > ]
+    < distance between two given points >
+
+Example call:
+---
+< compute_distance(a, c, b, d) >
+'''
 
 
 # Main function
