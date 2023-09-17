@@ -2,7 +2,7 @@
 '''
 # Team ID:          < 2414 >
 # Theme:            < Cosmo Logistic >
-# Author List:      < Aditya Wadgaonkar >
+# Author List:      < Aditya Wadgaonkar,Harikishanthini K,Sujan Adiga,Tanay Srivastava >
 # Filename:         < Decimal to Binary Converter.py >
 # Functions:        < dec_to_binary,main >
 # Global variables: < None >
