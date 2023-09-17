@@ -6,14 +6,16 @@
 # Functions:        < None >
 # Global variables: < None >
 '''
-if __name__ == '__main__':
-    
-    n = int(input("Enter n: "))
+test_cases = int(input())
+
+for i in range(0,test_cases):
+    n = int(input())
     for i in range(0,n):
-        if i!=0:
-            if i%2!=0:
-                print(i*i)
+            if i!=0:
+                if i%2!=0:
+                    print(i*i,end=" ")
+                else:
+                    print(2*i,end=" ")
             else:
-                print(2*i)
-        else:
-            print(i+3)
+                print(i+3,end=" ") 
+    print("\n")   
