@@ -7,10 +7,10 @@
 # Global variables: < None >
 '''
 
-num=int(input("enter the number of strings to check: "))
+num=int(input())
 
 for i in range(0,num):
-    str=input("enter string: ")
+    str=input()
     if str == str[::-1]:
         print("It is a palindrome.")
     else:
