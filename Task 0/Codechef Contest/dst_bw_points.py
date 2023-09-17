@@ -1,3 +1,11 @@
+'''
+# Team ID:          < 2414 >
+# Theme:            < Cosmo Logistic >
+# Author List:      < Aditya Wadgaonkar,Harikishanthini K,Sujan Adiga,Tanay Srivastava  >
+# Filename:         < dst_bw_points.py >
+# Functions:        < None >
+# Global variables: < None >
+'''
 def compute_distance(x1, y1, x2, y2):
 
     distance = (((x2-x1)**2)+((y2-y1)**2))**0.5
