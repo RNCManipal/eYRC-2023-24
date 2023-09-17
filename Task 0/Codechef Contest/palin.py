@@ -3,15 +3,20 @@
 # Theme:            < Cosmo Logistic >
 # Author List:      < Aditya Wadgaonkar,Harikishanthini K,Sujan Adiga,Tanay Srivastava  >
 # Filename:         < palin.py >
-# Functions:        < None >
+# Functions:        < main >
 # Global variables: < None >
 '''
 
-num=int(input())
-
-for i in range(0,num):
+# Function Name:    main (built in)
+#        Inputs:    Number of test cases and strings
+#       Outputs:    To print string is Palindrome or not Palindrome
+#       Purpose:    To check Strig is Palindrome or not Palindrome
+if __name__ == '__main__':
+  num=int(input())
+  
+  for i in range(0,num):
     str=input()
-    if str == str[::-1]:
+    if str.capitalize() == str[::-1].capitalize():
         print("It is a palindrome.")
     else:
         print("It is not a palindrome.")
