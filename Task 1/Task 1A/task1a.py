@@ -312,45 +312,79 @@ class aruco_tf(Node):
         # INSTRUCTIONS & HELP : 
 
         #	->  Get aruco center, distance from rgb, angle, width and ids list from 'detect_aruco_center' defined above
-
+        aruco_center, distance_from_rgb, angle, width, ids_list = detect_aruco(self.cv_image)
+        
         #   ->  Loop over detected box ids received to calculate position and orientation transform to publish TF 
+        for marker_id in ids_list:
 
-        #   ->  Use this equation to correct the input aruco angle received from cv2 aruco function 'estimatePoseSingleMarkers' here
-        #       It's a correction formula- 
-        #       angle_aruco = (0.788*angle_aruco) - ((angle_aruco**2)/3160)
+            #   ->  Use this equation to correct the input aruco angle received from cv2 aruco function 'estimatePoseSingleMarkers' here
+            #       It's a correction formula- 
+            #       angle_aruco = (0.788*angle_aruco) - ((angle_aruco**2)/3160)
+            corrected_angle = (0.788 * angle) - ((angle ** 2) / 3160)
 
-        #   ->  Then calculate quaternions from roll pitch yaw (where, roll and pitch are 0 while yaw is corrected aruco_angle)
+            #   ->  Then calculate quaternions from roll pitch yaw (where, roll and pitch are 0 while yaw is corrected aruco_angle)
+            quaternion = tf.transformations.quaternion_from_euler(0, 0, corrected_angle)
 
-        #   ->  Use center_aruco_list to get realsense depth and log them down. (divide by 1000 to convert mm to m)
+            #   ->  Use center_aruco_list to get realsense depth and log them down. (divide by 1000 to convert mm to m)
+            depth_meters = self.depth_image[int(aruco_center[marker_id][1])][int(aruco_center[marker_id][0])] / 1000
+            #   ->  Use this formula to rectify x, y, z based on focal length, center value and size of image
+            #       x = distance_from_rgb * (sizeCamX - cX - centerCamX) / focalX
+            #       y = distance_from_rgb * (sizeCamY - cY - centerCamY) / focalY
+            #       z = distance_from_rgb
+            #       where, 
+            #               cX, and cY from 'center_aruco_list'
+            #               distance_from_rgb is depth of object calculated in previous step
+            #               sizeCamX, sizeCamY, centerCamX, centerCamY, focalX and focalY are defined above
+            x = distance_from_rgb * (sizeCamX - aruco_center[marker_id][0] - centerCamX) / focalX
+            y = distance_from_rgb * (sizeCamY - aruco_center[marker_id][1] - centerCamY) / focalY
+            z = distance_from_rgb
 
-        #   ->  Use this formula to rectify x, y, z based on focal length, center value and size of image
-        #       x = distance_from_rgb * (sizeCamX - cX - centerCamX) / focalX
-        #       y = distance_from_rgb * (sizeCamY - cY - centerCamY) / focalY
-        #       z = distance_from_rgb
-        #       where, 
-        #               cX, and cY from 'center_aruco_list'
-        #               distance_from_rgb is depth of object calculated in previous step
-        #               sizeCamX, sizeCamY, centerCamX, centerCamY, focalX and focalY are defined above
+            #   ->  Now, mark the center points on image frame using cX and cY variables with help of 'cv2.cirle' function 
+            cv2.circle(self.cv_image, aruco_center[marker_id], 5, (0, 0, 255), -1)
 
-        #   ->  Now, mark the center points on image frame using cX and cY variables with help of 'cv2.cirle' function 
+            #   ->  Here, till now you receive coordinates from camera_link to aruco marker center position. 
+            #       So, publish this transform w.r.t. camera_link using Geometry Message - TransformStamped 
+            #       so that we will collect it's position w.r.t base_link in next step.
+            #       Use the following frame_id-
+            #           frame_id = 'camera_link'
+            #           child_frame_id = 'cam_<marker_id>'          Ex: cam_20, where 20 is aruco marker ID
+            tf_msg = TransformStamped()
+            tf_msg.header.frame_id = 'camera_link'
+            tf_msg.child_frame_id = 'cam_' + str(marker_id)
+            tf_msg.transform.translation.x = x
+            tf_msg.transform.translation.y = y
+            tf_msg.transform.translation.z = z
+            tf_msg.transform.rotation.x = quaternion[0]
+            tf_msg.transform.rotation.y = quaternion[1]
+            tf_msg.transform.rotation.z = quaternion[2]
+            tf_msg.transform.rotation.w = quaternion[3]
 
-        #   ->  Here, till now you receive coordinates from camera_link to aruco marker center position. 
-        #       So, publish this transform w.r.t. camera_link using Geometry Message - TransformStamped 
-        #       so that we will collect it's position w.r.t base_link in next step.
-        #       Use the following frame_id-
-        #           frame_id = 'camera_link'
-        #           child_frame_id = 'cam_<marker_id>'          Ex: cam_20, where 20 is aruco marker ID
+            # Publish the transform message
+            self.br.sendTransform(tf_msg)
 
-        #   ->  Then finally lookup transform between base_link and obj frame to publish the TF
-        #       You may use 'lookup_transform' function to pose of obj frame w.r.t base_link 
+            #   ->  Then finally lookup transform between base_link and obj frame to publish the TF
+            #       You may use 'lookup_transform' function to pose of obj frame w.r.t base_link 
+            try:
+                transform = self.tf_buffer.lookup_transform('base_link', 'cam_' + str(marker_id), self.get_clock().now())
+            except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
+                continue
 
-        #   ->  And now publish TF between object frame and base_link
-        #       Use the following frame_id-
-        #           frame_id = 'base_link'
-        #           child_frame_id = 'obj_<marker_id>'          Ex: obj_20, where 20 is aruco marker ID
+            #   ->  And now publish TF between object frame and base_link
+            #       Use the following frame_id-
+            #           frame_id = 'base_link'
+            #           child_frame_id = 'obj_<marker_id>'          Ex: obj_20, where 20 is aruco marker ID
+            obj_tf_msg = tf2_geometry_msgs.TransformStamped()
+            obj_tf_msg.header.frame_id = 'base_link'
+            obj_tf_msg.child_frame_id = 'obj_' + str(marker_id)
+            obj_tf_msg.transform = transform.transform
+            # Publish the object frame transform message
 
+            self.br.sendTransform(obj_tf_msg)
+            
         #   ->  At last show cv2 image window having detected markers drawn and center points located using 'cv2.imshow' function.
         #       Refer MD book on portal for sample image -> https://portal.e-yantra.org/
+        cv2.imshow('Detected Markers', self.cv_image)
+        cv2.waitKey(1)
 
         #   ->  NOTE:   The Z axis of TF should be pointing inside the box (Purpose of this will be known in task 1B)
         #               Also, auto eval script will be judging angular difference aswell. So, make sure that Z axis is inside the box (Refer sample images on Portal - MD book)
