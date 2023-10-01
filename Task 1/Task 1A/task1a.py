@@ -245,7 +245,7 @@ class aruco_tf(Node):
             ############################################
         except Exception as e:
             rospy.logerr(f"Error converting depth image: {e}") 
-        return      
+        return cv2_depth_image  
 
 
 
@@ -277,7 +277,7 @@ class aruco_tf(Node):
             #               You may use cv2 functions such as 'flip' and 'rotate' to do the same
         except Exception as e:
             rospy.logerr("Error converting ROS Image to CV2: %s", str(e))   #will show error you have to tun in python environment.
-        return  # Handle the error as needed
+        return cv_image  # Handle the error as needed
 
        
         
