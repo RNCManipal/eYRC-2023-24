@@ -185,8 +185,7 @@ def detect_aruco(image):
                 # Draw frame axes
                 rvec, tvec, _ = cv2.aruco.estimatePoseSingleMarkers(corners[i], size_of_aruco_m, cam_mat, dist_mat)
                 cv2.aruco.drawAxis(image, cam_mat, dist_mat, rvec, tvec, 0.1)
-                cv2.imshow("axis", image)
-                cv2.waitKey(0)
+              
 
                # Append the details to the respective lists
                 center_aruco_list.append(center)
@@ -231,8 +230,8 @@ class aruco_tf(Node):
         self.br = tf2_ros.TransformBroadcaster(self)                                    # object as transform broadcaster to send transform wrt some frame_id
         self.timer = self.create_timer(image_processing_rate, self.process_image)       # creating a timer based function which gets called on every 0.2 seconds (as defined by 'image_processing_rate' variable)
         
-        self.cv_image = None                                                            # colour raw image variable (from colorimagecb())
-        self.depth_image = None                                                         # depth image variable (from depthimagecb())
+        self.cv_image = None                                               # colour raw image variable (from colorimagecb())
+        self.depth_image = None                                                       # depth image variable (from depthimagecb())
 
 
     def depthimagecb(self, data):
