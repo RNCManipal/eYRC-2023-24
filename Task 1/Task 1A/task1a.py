@@ -74,6 +74,22 @@ def calculate_rectangle_area(coordinates):
     #       and formulate width and height of aruco detected to return 'area' and 'width'.
 
     ############################################
+    
+    [[x1,y1],[x2,y2],[x3,y3],[x4,y4]] = coordinates #extracting values from coordinates argument passed form main function
+    # Use the Shoelace formula to calculate the area
+    area = 0.5 * abs((x1*y2 + x2*y3 + x3*y4 + x4*y1) - (y1*x2 + y2*x3 + y3*x4 + y4*x1))
+
+    #calculating the width of the detected marker
+    # Calculate the distance between two opposite corners
+    diagonal1 = math.sqrt((x1 - x3)**2 + (y1 - y3)**2)
+    diagonal2 = math.sqrt((x2 - x4)**2 + (y2 - y4)**2)
+    
+    # Check if both diagonals are approximately equal (within a small tolerance)
+    tolerance = 1e-6
+    if abs(diagonal1 - diagonal2) < tolerance:
+        width = diagonal1  # Use either diagonal to determine width
+       
+
 
     return area, width
 
@@ -380,7 +396,7 @@ class aruco_tf(Node):
             # Publish the object frame transform message
 
             self.br.sendTransform(obj_tf_msg)
-            
+
         #   ->  At last show cv2 image window having detected markers drawn and center points located using 'cv2.imshow' function.
         #       Refer MD book on portal for sample image -> https://portal.e-yantra.org/
         cv2.imshow('Detected Markers', self.cv_image)
