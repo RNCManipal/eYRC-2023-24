@@ -84,7 +84,7 @@ def pose_estimation(frame, aruco_dict_type, matrix_coefficients, distortion_coef
             #cv2.aruco.drawFrameAxes(image, cam_mat, dist_mat, rvec, tvec, 0.1)
             cv2.drawFrameAxes(image, cam_mat, dist_mat, rvec, tvec,0.1)
 	    
-    return frame
+    return image
 
 
     
