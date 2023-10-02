@@ -89,7 +89,7 @@ def pose_estimation(frame, aruco_dict_type, matrix_coefficients, distortion_coef
 
     
 
-aruco_type = "DICT_5X5_100"
+aruco_type = "DICT_4X4_50"
 
 arucoDict = cv2.aruco.getPredefinedDictionary(ARUCO_DICT[aruco_type])
 
