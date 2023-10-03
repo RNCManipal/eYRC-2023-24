@@ -487,8 +487,13 @@ class aruco_tf(Node):
                 z = distance_from_rgb
 
                 #   ->  Now, mark the center points on image frame using cX and cY variables with help of 'cv2.cirle' function 
-                img_h , img_w = image_1.shape[:2]
-                cv2.circle(image_1, (img_h//2 ,img_w//2 ), 5, (0, 0, 255), -1)
+                print(center_aruco_list[i][0])
+                x=center_aruco_list[i][0]
+                y=center_aruco_list[i][1]
+                c_x=round(x)
+                c_y=round(y)
+                print(c_x)
+                cv2.circle(image_1, (c_x,c_y), 1, (0, 0, 0), -1)
 
                 #   ->  Here, till now you receive coordinates from camera_link to aruco marker center position. 
                 #       So, publish this transform w.r.t. camera_link using Geometry Message - TransformStamped 
