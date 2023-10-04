@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-
+#moved cv2.drawcircle() function to detect_aruco(image) function 
 '''
 *****************************************************************************************
 *
