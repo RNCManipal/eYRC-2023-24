@@ -527,6 +527,7 @@ class aruco_tf(Node):
                 try:
                     base_to_obj = self.tf_buffer.lookup_transform('base_link','cam_'+ str(marker_id), rclpy.Time())
                     #base_to_obj = self.tf_buffer.lookup_transform('base_link', f'obj_{aruco_marker["id"]}', rclpy.Time())
+		    #we can use self.get_clock().now() instead of  rclpy.Time()
                     self.br.sendTransform(base_to_obj)
 
                     # Publish the object frame transform message
