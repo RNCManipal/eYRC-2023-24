@@ -534,6 +534,7 @@ class aruco_tf(Node):
                     transform = self.tf_buffer.lookup_transform('base_link','obj_'+ str(marker_id) , self.get_clock().now())
                 except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
                     print("kuch na")
+		    continue 	
                 #source_frame = 'obj_' + str(marker_id)
                 #transform = self.tf_buffer.lookup_transform('base_link', source_frame , self.get_clock().now())
                 print("Came out side try except: ")
