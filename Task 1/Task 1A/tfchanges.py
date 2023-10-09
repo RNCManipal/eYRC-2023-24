@@ -522,10 +522,11 @@ class aruco_tf(Node):
                 tf_msg.transform.rotation.y = quaternion[1]
                 tf_msg.transform.rotation.z = quaternion[2]
                 tf_msg.transform.rotation.w = quaternion[3]
+		self.br.sendTransform(tf_msg)
                 i=i+1
                 try:
-                    #base_to_obj = self.tf_buffer.lookup_transform('base_link','cam_'+ str(marker_id), rclpy.Time())
-                    base_to_obj = self.tf_buffer.lookup_transform('base_link', f'obj_{aruco_marker["id"]}', rclpy.Time())
+                    base_to_obj = self.tf_buffer.lookup_transform('base_link','cam_'+ str(marker_id), rclpy.Time())
+                    #base_to_obj = self.tf_buffer.lookup_transform('base_link', f'obj_{aruco_marker["id"]}', rclpy.Time())
                     self.br.sendTransform(base_to_obj)
 
                     # Publish the object frame transform message
@@ -543,7 +544,7 @@ class aruco_tf(Node):
                 except tf2_ros.LookupException as e:
                     self.get_logger().error(f'Error looking up transform: {e}')
 
-                    self.br.sendTransform(tf_msg)
+                    
 
 
             #   ->  At last show cv2 image window having detected markers drawn and center points located using 'cv2.imshow' function.
