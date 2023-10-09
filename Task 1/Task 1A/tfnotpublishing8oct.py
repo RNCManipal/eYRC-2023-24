@@ -530,8 +530,8 @@ class aruco_tf(Node):
                 print("Value of i is: ",i)
                 #transform = self.tf_buffer.lookup_transform('base_link','obj_'+ str(marker_id) , self.get_clock().now())
                 try:
-                    source_frame = 'obj_' + str(marker_id)
-                    transform = self.tf_buffer.lookup_transform('base_link','cobj_'+ str(marker_id) , self.get_clock().now())
+                    #source_frame = 'obj_' + str(marker_id)
+                    transform = self.tf_buffer.lookup_transform('base_link','obj_'+ str(marker_id) , self.get_clock().now())
                 except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
                     print("kuch na")
                 #source_frame = 'obj_' + str(marker_id)
