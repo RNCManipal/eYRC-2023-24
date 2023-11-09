@@ -503,6 +503,7 @@ class aruco_tf(Node):
             while i < len(angle_aruco_list):
                 xyz_val=[]
                 #i=2
+                print("i val is: ",i)
                 if i==3:
                     break
 
@@ -520,8 +521,8 @@ class aruco_tf(Node):
                 #   ->  Use center_aruco_list to get realsense depth and log them down. (divide by 1000 to convert mm to m)
               
                 distance_from_rgb = self.depth_image[int(center_aruco_list[i][1])][int(center_aruco_list[i][0])] / 1000
-                print("Values are 1:",center_aruco_list[i][1])
-                print("Values are 2:",center_aruco_list[i][0])
+                #print("Values are 1:",center_aruco_list[i][1])
+                #print("Values are 2:",center_aruco_list[i][0])
                 #distance_from_rgb = distance_from_rgb_list[i]/1000
                 #   ->  Use this formula to rectify x, y, z based on focal length, center value and size of image
                 #       x = distance_from_rgb * (sizeCamX - cX - centerCamX) / focalX
@@ -538,7 +539,7 @@ class aruco_tf(Node):
                 angle_in_degrees = 90  # Change this to your desired angle
                 rad = np.deg2rad(angle_in_degrees)
 
-                print(f'x before rotation: {x}, z before rotation: {z}')
+                #print(f'x before rotation: {x}, z before rotation: {z}')
 
                 # Apply rotation
                 rotationMatrix_1 = np.array([[np.cos(rad), -np.sin(rad)], [np.sin(rad), np.cos(rad)]])
@@ -547,14 +548,14 @@ class aruco_tf(Node):
                 rotationMatrix_2 = np.array([[np.cos(-rad), -np.sin(-rad)], [np.sin(-rad), np.cos(-rad)]])
                 pointsy_z = np.array([y, z])
                 y, z=np.dot(pointsy_z, rotationMatrix_2)
-                print(f'x after rotation: {x}, z after rotation: {z}')
+                #print(f'x after rotation: {x}, z after rotation: {z}')
                 #   ->  Now, mark the center points on image frame using cX and cY variables with help of 'cv2.cirle' function 
                 #print(center_aruco_list[i][0])
-                print("value of i is : ",i)
-                print("DIstance from RGB: ", distance_from_rgb_list)
-                print("value of x is :",x)
-                print("value of y is :",y)
-                print("value of z is :",z)
+                #print("value of i is : ",i)
+                #print("DIstance from RGB: ", distance_from_rgb_list)
+                #print("value of x is :",x)
+                #print("value of y is :",y)
+                #print("value of z is :",z)
 
 
                 #new part added 
@@ -596,7 +597,7 @@ class aruco_tf(Node):
 		    #we can use self.get_clock().now() instead of  rclpy.Time()
                     self.br.sendTransform(base_to_obj)
 
-                    print("////////////")
+                    '''print("////////////")
                     print("Lookup transform details: ")
                     print("x: ",base_to_obj.transform.translation.x)
                     print("y: ",base_to_obj.transform.translation.y)
@@ -604,16 +605,16 @@ class aruco_tf(Node):
                     print("rot x: ",base_to_obj.transform.rotation.x)
                     print("rot y: ",base_to_obj.transform.rotation.y)
                     print("rot z: ",base_to_obj.transform.rotation.z)
-                    print("rot w: ",base_to_obj.transform.rotation.w)
-
-                    xyz_val.append(base_to_obj.transform.translation.x)
-                    xyz_val.append(base_to_obj.transform.translation.y)
-                    xyz_val.append(base_to_obj.transform.translation.z)
-                    '''print("xyz_val values are ")
-                    print("x:",xyz_val[0])
-                    print("x:",xyz_val[1])
-                    print("x:",xyz_val[2])'''
-                    multi_box_coordinates.append(xyz_val)
+                    print("rot w: ",base_to_obj.transform.rotation.w)'''
+                    if i==0:
+                        xyz_val.append(base_to_obj.transform.translation.x)
+                        xyz_val.append(base_to_obj.transform.translation.y)
+                        xyz_val.append(base_to_obj.transform.translation.z)
+                        '''print("xyz_val values are ")
+                        print("x:",xyz_val[0])
+                        print("x:",xyz_val[1])
+                        print("x:",xyz_val[2])'''
+                        multi_box_coordinates.append(xyz_val)
                     #//////
                     # current euler * X = required euler(0,0,0)
                     # publish quaternion ( (oldEuler * X) )
